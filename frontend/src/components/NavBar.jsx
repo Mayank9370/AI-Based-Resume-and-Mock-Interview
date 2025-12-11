@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu, X, FileText } from "lucide-react";
 import logo from "../assets/logo3.png";
+import { VITE_BASE_URL } from "../config";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -11,7 +12,7 @@ const Navbar = () => {
         const params = new URLSearchParams({
             response_type: "code",
             client_id: "777p4meyjnrqr4",
-            redirect_uri: "http://localhost:5000/api/linkedin/callback",
+            redirect_uri: `${VITE_BASE_URL}/api/linkedin/callback`,
             scope: "openid email profile",
         });
 
