@@ -60,7 +60,7 @@ const CreativeTemplate = ({ data, accentColor }) => {
 
                             {item.description && (
                                 <div
-                                    className="text-gray-700 leading-relaxed text-sm"
+                                    className="text-gray-700 leading-relaxed text-sm resume-html-content"
                                     dangerouslySetInnerHTML={{
                                         __html: Array.isArray(item.description)
                                             ? item.description.join('<br>')
@@ -153,7 +153,7 @@ const CreativeTemplate = ({ data, accentColor }) => {
                     <div className="mb-10 p-6 bg-white rounded-lg shadow-sm border-l-4" style={{ borderColor: accentColor }}>
                         <h2 className="text-xl font-bold uppercase tracking-wider mb-3" style={{ color: accentColor }}>Profile</h2>
                         <div
-                            className="leading-relaxed text-gray-700"
+                            className="leading-relaxed text-gray-700 resume-html-content"
                             dangerouslySetInnerHTML={{ __html: data.professional_summary }}
                         />
                     </div>

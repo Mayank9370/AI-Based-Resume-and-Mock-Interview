@@ -45,7 +45,7 @@ const ModernCleanTemplate = ({ data, accentColor }) => {
         <>
           <SectionTitle>Summary</SectionTitle>
           <div
-            className="text-gray-800 leading-snug"
+            className="text-gray-800 leading-snug resume-html-content"
             dangerouslySetInnerHTML={{ __html: data.professional_summary }}
           />
         </>
@@ -86,7 +86,7 @@ const ModernCleanTemplate = ({ data, accentColor }) => {
                       </div>
                       {exp.description && (
                         <div
-                          className="ml-5 mt-1 text-gray-800 text-sm"
+                          className="ml-5 mt-1 text-gray-800 text-sm resume-html-content"
                           dangerouslySetInnerHTML={{ __html: exp.description }}
                         />
                       )}
@@ -110,7 +110,7 @@ const ModernCleanTemplate = ({ data, accentColor }) => {
                       </div>
                       {proj.description && (
                         <div
-                          className="ml-5 mt-1 text-gray-800 text-sm"
+                          className="ml-5 mt-1 text-gray-800 text-sm resume-html-content"
                           dangerouslySetInnerHTML={{ __html: proj.description }}
                         />
                       )}
@@ -160,7 +160,7 @@ const ModernCleanTemplate = ({ data, accentColor }) => {
 
                     {item.description && (
                       <div
-                        className="ml-5 mt-1 text-gray-800 text-sm"
+                        className="ml-5 mt-1 text-gray-800 text-sm resume-html-content"
                         dangerouslySetInnerHTML={{
                           __html: Array.isArray(item.description)
                             ? item.description.join('<br>')
@@ -211,7 +211,7 @@ const ModernCleanTemplate = ({ data, accentColor }) => {
                     </div>
                     {exp.description && (
                       <div
-                        className="ml-5 mt-1 text-gray-800 text-sm"
+                        className="ml-5 mt-1 text-gray-800 text-sm resume-html-content"
                         dangerouslySetInnerHTML={{ __html: exp.description }}
                       />
                     )}
@@ -233,7 +233,7 @@ const ModernCleanTemplate = ({ data, accentColor }) => {
                     </div>
                     {proj.description && (
                       <div
-                        className="ml-5 mt-1 text-gray-800 text-sm"
+                        className="ml-5 mt-1 text-gray-800 text-sm resume-html-content"
                         dangerouslySetInnerHTML={{ __html: proj.description }}
                       />
                     )}

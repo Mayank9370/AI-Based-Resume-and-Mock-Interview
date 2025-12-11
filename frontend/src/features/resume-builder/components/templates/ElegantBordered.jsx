@@ -18,7 +18,7 @@ const ElegantBordered = ({ data, accentColor }) => {
           <h2 className="font-semibold text-lg mb-2" style={{ color: accentColor }}>
             Profile
           </h2>
-          <p className="text-gray-700 leading-relaxed">{data.professional_summary}</p>
+          <div className="text-gray-700 leading-relaxed resume-html-content" dangerouslySetInnerHTML={{ __html: data.professional_summary }} />
         </section>
       )}
 
@@ -41,7 +41,7 @@ const ElegantBordered = ({ data, accentColor }) => {
                     <p className="text-sm text-gray-600">
                       {exp.start_date} - {exp.is_current ? "Present" : exp.end_date}
                     </p>
-                    {exp.description && <p className="text-gray-700 mt-2 whitespace-pre-line">{exp.description}</p>}
+                    {exp.description && <div className="text-gray-700 mt-2 resume-html-content" dangerouslySetInnerHTML={{ __html: exp.description }} />}
                   </div>
                 ))}
               </section>
@@ -89,7 +89,7 @@ const ElegantBordered = ({ data, accentColor }) => {
                 {items.map((proj, i) => (
                   <div key={i} className="mb-4 border-l pl-4" style={{ borderColor: accentColor }}>
                     <h3 className="font-semibold">{proj.name}</h3>
-                    {proj.description && <p className="text-gray-700 mt-1 whitespace-pre-line">{proj.description}</p>}
+                    {proj.description && <div className="text-gray-700 mt-1 resume-html-content" dangerouslySetInnerHTML={{ __html: proj.description }} />}
                     {proj.bullets && proj.bullets.length > 0 && (
                       <ul className="list-disc ml-4 text-gray-700 text-sm mt-1">
                         {proj.bullets.map((b, k) => b && <li key={k}>{b}</li>)}
@@ -114,12 +114,14 @@ const ElegantBordered = ({ data, accentColor }) => {
                   {(item.date || item.start_date) && <p className="text-gray-600 text-xs">{item.date || item.start_date}</p>}
 
                   {item.description && (
-                    <div className="text-gray-700 mt-1 whitespace-pre-line">
-                      {Array.isArray(item.description)
-                        ? <ul className="list-disc ml-4">{item.description.map((d, k) => <li key={k}>{d}</li>)}</ul>
-                        : item.description
-                      }
-                    </div>
+                    <div
+                      className="text-gray-700 mt-1 resume-html-content"
+                      dangerouslySetInnerHTML={{
+                        __html: Array.isArray(item.description)
+                          ? item.description.join('<br>')
+                          : item.description
+                      }}
+                    />
                   )}
                   {item.bullets && item.bullets.length > 0 && (
                     <ul className="list-disc ml-4 text-gray-700 text-sm mt-1">
@@ -146,7 +148,7 @@ const ElegantBordered = ({ data, accentColor }) => {
                   <p className="text-sm text-gray-600">
                     {exp.start_date} - {exp.is_current ? "Present" : exp.end_date}
                   </p>
-                  <p className="text-gray-700 mt-2 whitespace-pre-line">{exp.description}</p>
+                  <div className="text-gray-700 mt-2 resume-html-content" dangerouslySetInnerHTML={{ __html: exp.description }} />
                 </div>
               ))}
             </section>

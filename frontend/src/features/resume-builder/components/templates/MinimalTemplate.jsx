@@ -53,7 +53,7 @@ const MinimalTemplate = ({ data, accentColor }) => {
 
                                 {item.description && (
                                     <div
-                                        className="text-gray-700 leading-relaxed text-sm mt-1"
+                                        className="text-gray-700 leading-relaxed text-sm mt-1 resume-html-content"
                                         dangerouslySetInnerHTML={{
                                             __html: Array.isArray(item.description)
                                                 ? item.description.join('<br>')
@@ -108,7 +108,7 @@ const MinimalTemplate = ({ data, accentColor }) => {
             {data.professional_summary && (
                 <section className="mb-10">
                     <div
-                        className="text-gray-700"
+                        className="text-gray-700 resume-html-content"
                         dangerouslySetInnerHTML={{ __html: data.professional_summary }}
                     />
                 </section>

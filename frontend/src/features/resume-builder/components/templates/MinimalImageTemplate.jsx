@@ -115,7 +115,7 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                                 SUMMARY
                             </h2>
                             <div
-                                className="text-zinc-700 leading-relaxed"
+                                className="text-zinc-700 leading-relaxed resume-html-content"
                                 dangerouslySetInnerHTML={{ __html: data.professional_summary }}
                             />
                         </section>
@@ -151,7 +151,7 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                                                     </p>
                                                     {exp.description && (
                                                         <div
-                                                            className="text-sm text-zinc-700 leading-relaxed"
+                                                            className="text-sm text-zinc-700 leading-relaxed resume-html-content"
                                                             dangerouslySetInnerHTML={{ __html: exp.description }}
                                                         />
                                                     )}
@@ -177,7 +177,7 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                                                     )}
                                                     {project.description && (
                                                         <div
-                                                            className="text-sm text-zinc-700 mt-1"
+                                                            className="text-sm text-zinc-700 mt-1 resume-html-content"
                                                             dangerouslySetInnerHTML={{ __html: project.description }}
                                                         />
                                                     )}
@@ -213,7 +213,7 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
 
                                                 {item.description && (
                                                     <div
-                                                        className="text-sm text-zinc-700 mt-1"
+                                                        className="text-sm text-zinc-700 mt-1 resume-html-content"
                                                         dangerouslySetInnerHTML={{
                                                             __html: Array.isArray(item.description)
                                                                 ? item.description.join('<br>')
@@ -258,7 +258,7 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                                                 </p>
                                                 {exp.description && (
                                                     <div
-                                                        className="text-sm text-zinc-700 leading-relaxed"
+                                                        className="text-sm text-zinc-700 leading-relaxed resume-html-content"
                                                         dangerouslySetInnerHTML={{ __html: exp.description }}
                                                     />
                                                 )}
@@ -283,7 +283,7 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                                                 </p>
                                                 {project.description && (
                                                     <div
-                                                        className="text-sm text-zinc-700"
+                                                        className="text-sm text-zinc-700 resume-html-content"
                                                         dangerouslySetInnerHTML={{ __html: project.description }}
                                                     />
                                                 )}

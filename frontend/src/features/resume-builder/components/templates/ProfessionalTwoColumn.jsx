@@ -36,7 +36,7 @@ const ProfessionalTwoColumn = ({ data, accentColor }) => {
         {data.professional_summary && (
           <section className="mb-6">
             <h2 className="text-xl font-semibold mb-3" style={{ color: accentColor }}>Summary</h2>
-            <p className="text-gray-700">{data.professional_summary}</p>
+            <div className="text-gray-700 resume-html-content" dangerouslySetInnerHTML={{ __html: data.professional_summary }} />
           </section>
         )}
 
@@ -66,13 +66,9 @@ const ProfessionalTwoColumn = ({ data, accentColor }) => {
                       <p className="text-gray-700">{item.company || item.institution || item.subheading || item.subtitle}</p>
                     )}
                     {item.description && (
-                      <div className="text-gray-700 whitespace-pre-line mt-1">
-                        {Array.isArray(item.description) ? (
-                          <ul className="list-disc list-outside ml-4">
-                            {item.description.map((d, k) => d && <li key={k}>{d}</li>)}
-                          </ul>
-                        ) : item.description}
-                      </div>
+                      <div className="text-gray-700 mt-1 resume-html-content" dangerouslySetInnerHTML={{
+                        __html: Array.isArray(item.description) ? item.description.join('<br>') : item.description
+                      }} />
                     )}
                   </div>
                 ))}
@@ -92,7 +88,7 @@ const ProfessionalTwoColumn = ({ data, accentColor }) => {
                       <p className="text-sm text-gray-600">{exp.start_date} - {exp.is_current ? "Present" : exp.end_date}</p>
                     </div>
                     <p className="text-gray-700">{exp.company}</p>
-                    <p className="text-gray-700 whitespace-pre-line mt-1">{exp.description}</p>
+                    <div className="text-gray-700 mt-1 resume-html-content" dangerouslySetInnerHTML={{ __html: exp.description }} />
                   </div>
                 ))}
               </section>

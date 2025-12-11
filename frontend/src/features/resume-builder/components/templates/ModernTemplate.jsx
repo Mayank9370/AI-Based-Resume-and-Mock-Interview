@@ -50,7 +50,7 @@ const ModernTemplate = ({ data, accentColor }) => {
 									</div>
 								</div>
 								{exp.description && (
-									<div className="text-gray-700 leading-relaxed mt-3" dangerouslySetInnerHTML={{ __html: exp.description }} />
+									<div className="text-gray-700 leading-relaxed mt-3 resume-html-content" dangerouslySetInnerHTML={{ __html: exp.description }} />
 								)}
 							</div>
 						))}
@@ -82,7 +82,7 @@ const ModernTemplate = ({ data, accentColor }) => {
 									)}
 								</div>
 								{p.description && (
-									<div className="text-gray-700 leading-relaxed text-sm mt-2" dangerouslySetInnerHTML={{ __html: p.description }} />
+									<div className="text-gray-700 leading-relaxed text-sm mt-2 resume-html-content" dangerouslySetInnerHTML={{ __html: p.description }} />
 								)}
 								{p.bullets && p.bullets.length > 0 && p.bullets.some(b => b.trim()) && (
 									<ul className="list-disc list-outside ml-4 mt-2 text-sm text-gray-700">
@@ -125,7 +125,7 @@ const ModernTemplate = ({ data, accentColor }) => {
 								)}
 
 								{item.description && (
-									<div className="text-gray-700 mt-2 text-sm" dangerouslySetInnerHTML={{
+									<div className="text-gray-700 mt-2 text-sm resume-html-content" dangerouslySetInnerHTML={{
 										__html: Array.isArray(item.description)
 											? item.description.join('<br>')
 											: item.description
@@ -194,7 +194,7 @@ const ModernTemplate = ({ data, accentColor }) => {
 						<h2 className="text-2xl font-light mb-4 pb-2 border-b border-gray-200" style={{ borderColor: accentColor }}>
 							Professional Summary
 						</h2>
-						<div className="text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: data.professional_summary }} />
+						<div className="text-gray-700 leading-relaxed resume-html-content" dangerouslySetInnerHTML={{ __html: data.professional_summary }} />
 					</section>
 				)}
 

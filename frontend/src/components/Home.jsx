@@ -20,8 +20,8 @@ const Home = () => {
         <DashboardOverview />
         <FAQ />
         <Review />
-        <Subcription />
-        <About />
+        {/* <Subcription /> */}
+        {/* <About /> */}
 
       </div>
     </div>

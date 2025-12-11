@@ -45,7 +45,7 @@ const Basic = ({ data }) => {
                       <a href={project.link} className="text-xs text-blue-600 block mb-1">Link</a>
                     )}
                     {project.description && (
-                      <p className="text-sm">{project.description}</p>
+                      <div className="text-sm resume-html-content" dangerouslySetInnerHTML={{ __html: project.description }} />
                     )}
                     {(project.bullets || project.points) && (
                       <ul className="list-disc ml-5 text-sm leading-snug">
@@ -84,7 +84,7 @@ const Basic = ({ data }) => {
                       <span className="text-xs">{exp.start_date} - {exp.is_current ? "Present" : exp.end_date}</span>
                     </div>
                     <div className="text-sm italic mb-1">{exp.company}</div>
-                    <p className="text-sm whitespace-pre-line">{exp.description}</p>
+                    <div className="text-sm resume-html-content" dangerouslySetInnerHTML={{ __html: exp.description }} />
                   </div>
                 ))}
               </Section>
@@ -102,12 +102,14 @@ const Basic = ({ data }) => {
                       {(item.subtitle || item.subheading) && <span> - {item.subtitle || item.subheading}</span>}
 
                       {item.description && (
-                        <div className="block mt-1 text-gray-700 whitespace-pre-line text-sm">
-                          {Array.isArray(item.description)
-                            ? <ul>{item.description.map((d, k) => <li key={k}>{d}</li>)}</ul>
-                            : item.description
-                          }
-                        </div>
+                        <div
+                          className="block mt-1 text-gray-700 text-sm resume-html-content"
+                          dangerouslySetInnerHTML={{
+                            __html: Array.isArray(item.description)
+                              ? item.description.join('<br>')
+                              : item.description
+                          }}
+                        />
                       )}
                       {item.bullets && item.bullets.length > 0 && (
                         <ul className="list-disc ml-5 mt-1 text-gray-800">

@@ -49,7 +49,7 @@ const CompactTemplate = ({ data, accentColor }) => {
 
                             {item.description && (
                                 <div
-                                    className="text-xs leading-snug text-gray-800 mt-0.5"
+                                    className="text-xs leading-snug text-gray-800 mt-0.5 resume-html-content"
                                     dangerouslySetInnerHTML={{
                                         __html: Array.isArray(item.description)
                                             ? item.description.join('<br>')
@@ -115,7 +115,7 @@ const CompactTemplate = ({ data, accentColor }) => {
                         <div className="mb-3">
                             <h2 className="text-sm font-bold uppercase border-b mb-1 pb-0.5" style={{ borderColor: accentColor, color: accentColor }}>Profile</h2>
                             <div
-                                className="text-xs text-gray-800 text-justify"
+                                className="text-xs text-gray-800 text-justify resume-html-content"
                                 dangerouslySetInnerHTML={{ __html: data.professional_summary }}
                             />
                         </div>

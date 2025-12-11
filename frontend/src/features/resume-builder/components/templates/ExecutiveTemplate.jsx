@@ -22,7 +22,7 @@ const ExecutiveTemplate = ({ data, accentColor }) => {
             Executive Summary
           </h2>
           <div
-            className="leading-relaxed text-gray-700"
+            className="leading-relaxed text-gray-700 resume-html-content"
             dangerouslySetInnerHTML={{ __html: data.professional_summary }}
           />
         </section>
@@ -49,7 +49,7 @@ const ExecutiveTemplate = ({ data, accentColor }) => {
                     <p className="text-gray-700 font-medium">{exp.company}</p>
                     {exp.description && (
                       <div
-                        className="text-gray-700 mt-2"
+                        className="text-gray-700 mt-2 resume-html-content"
                         dangerouslySetInnerHTML={{ __html: exp.description }}
                       />
                     )}
@@ -105,7 +105,7 @@ const ExecutiveTemplate = ({ data, accentColor }) => {
                     </div>
                     {proj.description && (
                       <div
-                        className="text-gray-700 mt-2"
+                        className="text-gray-700 mt-2 resume-html-content"
                         dangerouslySetInnerHTML={{ __html: proj.description }}
                       />
                     )}
@@ -136,7 +136,7 @@ const ExecutiveTemplate = ({ data, accentColor }) => {
 
                   {item.description && (
                     <div
-                      className="text-gray-700 mt-2"
+                      className="text-gray-700 mt-2 resume-html-content"
                       dangerouslySetInnerHTML={{
                         __html: Array.isArray(item.description)
                           ? item.description.join('<br>')
@@ -172,7 +172,7 @@ const ExecutiveTemplate = ({ data, accentColor }) => {
                   <p className="text-gray-700 font-medium">{exp.company}</p>
                   {exp.description && (
                     <div
-                      className="text-gray-700 mt-2"
+                      className="text-gray-700 mt-2 resume-html-content"
                       dangerouslySetInnerHTML={{ __html: exp.description }}
                     />
                   )}

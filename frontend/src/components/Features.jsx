@@ -5,9 +5,9 @@ export default function Features() {
             <h1 className="text-3xl font-semibold text-center mx-auto">Powerful Career Tools</h1>
             <p className="text-sm text-slate-500 text-center mt-2 max-w-2xl mx-auto">Everything you need to succeed in your job search journey — from crafting the perfect resume to landing your dream job.</p>
 
-            <div className="flex flex-wrap items-center justify-center gap-6 min-h-[400px] w-full max-w-7xl mt-10 mx-auto">
+            <div className="flex flex-wrap md:flex-nowrap items-center justify-center gap-6 min-h-[400px] w-full max-w-7xl mt-10 mx-auto">
                 {/* Resume Builder */}
-                <div className="relative group flex-grow transition-all w-full md:w-56 h-[400px] duration-500 hover:flex-[2]">
+                <div className="relative group transition-all duration-500 w-full md:w-auto md:flex-1 md:hover:flex-[3] h-[400px]">
                     <img className="h-full w-full object-cover object-center rounded-2xl"
                         src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&h=400&auto=format&fit=crop"
                         alt="Resume Builder" />
@@ -20,7 +20,7 @@ export default function Features() {
                 </div>
 
                 {/* AI Enhancement */}
-                <div className="relative group flex-grow transition-all w-full md:w-56 h-[400px] duration-500 hover:flex-[2]">
+                <div className="relative group transition-all duration-500 w-full md:w-auto md:flex-1 md:hover:flex-[3] h-[400px]">
                     <img className="h-full w-full object-cover object-center rounded-2xl"
                         src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&h=400&auto=format&fit=crop"
                         alt="AI Enhancement" />
@@ -33,7 +33,7 @@ export default function Features() {
                 </div>
 
                 {/* Mock Interview */}
-                <div className="relative group flex-grow transition-all w-full md:w-56 h-[400px] duration-500 hover:flex-[2]">
+                <div className="relative group transition-all duration-500 w-full md:w-auto md:flex-1 md:hover:flex-[3] h-[400px]">
                     <img className="h-full w-full object-cover object-center rounded-2xl"
                         src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&h=400&auto=format&fit=crop"
                         alt="Mock Interview" />
@@ -46,7 +46,7 @@ export default function Features() {
                 </div>
 
                 {/* LinkedIn Job Search */}
-                <div className="relative group flex-grow transition-all w-full md:w-56 h-[400px] duration-500 hover:flex-[2]">
+                <div className="relative group transition-all duration-500 w-full md:w-auto md:flex-1 md:hover:flex-[3] h-[400px]">
                     <img className="h-full w-full object-cover object-center rounded-2xl"
                         src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&h=400&auto=format&fit=crop"
                         alt="LinkedIn Job Search" />
