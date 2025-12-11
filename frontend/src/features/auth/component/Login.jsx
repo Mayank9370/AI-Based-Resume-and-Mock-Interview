@@ -1,10 +1,12 @@
 const Login = () => {
-  
+  const { VITE_BASE_URL } = import.meta.env;
+
   const handleLogin = () => {
     const params = new URLSearchParams({
       response_type: "code",
       client_id: "777p4meyjnrqr4",
-      redirect_uri: "http://localhost:5000/api/linkedin/callback",
+      redirect_uri: `${VITE_BASE_URL}/api/linkedin/callback`,
+      //redirect_uri: "http://localhost:5000/api/linkedin/callback",
       scope: "openid email profile",
     });
 
