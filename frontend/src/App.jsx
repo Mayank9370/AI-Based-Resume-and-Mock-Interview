@@ -26,11 +26,10 @@ const App = () => {
         <Route path='/resumeBuilder/:resumeId' element={<ResumeBuilder />} />
         <Route path="/resumeBuilder" element={<ResumeBuilder />} />
         <Route path='/jobpage' element={<JobsPage />} />
-        <Route path='/mockInterview' element={<Page />}  />
+        <Route path='/mockInterview' element={<Page />} />
       </Routes>
       <Footer />
     </div>
   )
 }
-
 export default App;

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Upload, FileText, Loader2, ArrowLeft } from "lucide-react";
+import { Upload, FileText, Loader2, ArrowLeft, Sparkles } from "lucide-react";
 import toast from "react-hot-toast";
 
 /* ----------------------------------------------
-  MINIMAL INTERNAL UI COMPONENTS (No external imports)
+  MINIMAL INTERNAL UI COMPONENTS
 ------------------------------------------------ */
 
 // BUTTON
@@ -69,7 +69,7 @@ function CardContent({ children }) {
   return <div>{children}</div>;
 }
 
-// SIMPLE TABS IMPLEMENTATION
+// SIMPLE TABS
 function Tabs({ defaultValue, children }) {
   const [active, setActive] = useState(defaultValue);
   return (
@@ -116,7 +116,7 @@ function TabsContent({ children }) {
 }
 
 /* ----------------------------------------------
-  MAIN DASHBOARD PAGE (SELF-CONTAINED)
+  MAIN COMPONENT — WITH COMING SOON UX
 ------------------------------------------------ */
 
 export default function Page() {
@@ -127,65 +127,33 @@ export default function Page() {
   const [jobDescription, setJobDescription] = useState("");
   const [fileName, setFileName] = useState("");
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setFileName(file.name);
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      if (typeof event.target.result === "string") {
-        setResumeText(event.target.result);
-      }
-    };
-    reader.readAsText(file);
+  const notifyComingSoon = () => {
+    toast.success("✨ Coming Soon — Stay Tuned!");
   };
 
-  const handleStartInterview = async () => {
-    if (!jobRole) {
-      toast.error("Please enter a job role");
-      return;
-    }
+  const handleFileUpload = () => {
+    notifyComingSoon();
+  };
 
-    // Show "Coming Soon" toast notification
-    toast.success("🚀 Mock Interview feature coming soon! Stay tuned.", {
-      duration: 4000,
-      icon: "⏳",
-    });
+  const handleDescriptionSubmit = () => {
+    notifyComingSoon();
+  };
 
-    // Original API call commented out for future implementation
-    /*
-    setLoading(true);
-
-    try {
-      const res = await fetch("http://localhost:5000/api/interviews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          jobRole,
-          jobDescription,
-          resumeText,
-          userId: "demo-user",
-        }),
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        navigate(`/interview/${data.interview._id}`);
-      } else {
-        alert("Failed to create interview");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error creating interview");
-    }
-
-    setLoading(false);
-    */
+  const handleStartInterview = () => {
+    notifyComingSoon();
   };
 
   return (
     <div className="min-h-screen bg-background">
+
+      {/* ⭐ COMING SOON HEADER BANNER */}
+      <div className="bg-gradient-to-r from-blue-600 to-green-500 text-white py-3 text-center flex items-center justify-center gap-2 animate-pulse">
+        <Sparkles className="h-5 w-5" />
+        <span className="font-medium text-sm">
+          🚀 Big Features Coming Soon — Stay Tuned!
+        </span>
+      </div>
+
       {/* Header */}
       <header className="border-b">
         <div className="container mx-auto px-6 py-4 flex items-center gap-4">
@@ -208,6 +176,7 @@ export default function Page() {
 
           <CardContent>
             <div className="space-y-6">
+
               {/* Job Role */}
               <div>
                 <Label htmlFor="jobRole">Job Role *</Label>
@@ -240,33 +209,19 @@ export default function Page() {
                     <TabsTrigger value="write">Write Description</TabsTrigger>
                   </TabsList>
 
+                  {/* Upload Tab */}
                   <TabsContent value="upload">
-                    <div className="border-2 border-dashed rounded-lg p-8 text-center">
-                      <input
-                        type="file"
-                        accept=".txt,.pdf,.doc,.docx"
-                        className="hidden"
-                        id="resume-upload"
-                        onChange={handleFileUpload}
-                      />
-
-                      <label htmlFor="resume-upload" className="cursor-pointer">
-                        {fileName ? (
-                          <div className="flex items-center justify-center gap-2">
-                            <FileText className="h-8 w-8 text-primary" />
-                            <span>{fileName}</span>
-                          </div>
-                        ) : (
-                          <>
-                            <Upload className="h-10 w-10 mx-auto mb-4 text-gray-400" />
-                            <p>Click to upload your resume</p>
-                            <p className="text-sm text-gray-500">Supports TXT, PDF, DOC, DOCX</p>
-                          </>
-                        )}
-                      </label>
+                    <div
+                      onClick={handleFileUpload}
+                      className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer"
+                    >
+                      <Upload className="h-10 w-10 mx-auto mb-4 text-gray-400" />
+                      <p>Click to upload your resume</p>
+                      <p className="text-sm text-gray-500">Supports TXT, PDF, DOC, DOCX</p>
                     </div>
                   </TabsContent>
 
+                  {/* Write Tab */}
                   <TabsContent value="write">
                     <Textarea
                       placeholder="Describe your work experience..."
@@ -274,6 +229,13 @@ export default function Page() {
                       onChange={(e) => setResumeText(e.target.value)}
                       className="min-h-[200px]"
                     />
+
+                    <Button
+                      onClick={handleDescriptionSubmit}
+                      className="mt-3 w-full"
+                    >
+                      Submit Description
+                    </Button>
                   </TabsContent>
                 </Tabs>
               </div>
@@ -281,7 +243,7 @@ export default function Page() {
               {/* Start Button */}
               <Button
                 onClick={handleStartInterview}
-                disabled={loading || !jobRole}
+                disabled={loading}
                 className="w-full"
               >
                 {loading ? (

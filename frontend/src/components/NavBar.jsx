@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu, X, FileText } from "lucide-react";
 import logo from "../assets/logo3.png";
-import { VITE_BASE_URL } from "../config";
 
 const Navbar = () => {
+
+    const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ const Navbar = () => {
     const navLinks = [
         { name: "Home", path: "/" },
         { name: "AI Resume Builder", path: "/resume/dashboard" },
-        { name: "Resume Enhancer", path: "/resume/dashboard" },
+        // { name: "Resume Enhancer", path: "/resume/dashboard" },
         { name: "Mock Interview", path: "/mockInterview" },
         { name: "Jobs", path: "/jobpage" },
     ];
@@ -39,9 +40,14 @@ const Navbar = () => {
                         onClick={() => navigate("/")}
                     >
                         <img src={logo} className="h-10 w-10 rounded-full" alt="Logo" />
-                        <span className="text-xl font-bold tracking-tight text-slate-900">
-                            Resumify
+                        <span className="text-3xl font-extrabold tracking-tight text-blue-900 
+  [text-shadow:_0_1px_2px_#0004]">
+                            FundoCareer
                         </span>
+
+
+
+
                     </div>
 
                     {/* Desktop Nav */}

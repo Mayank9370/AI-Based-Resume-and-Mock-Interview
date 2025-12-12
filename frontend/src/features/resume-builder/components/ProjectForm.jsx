@@ -1,6 +1,7 @@
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, FolderGit2, Link as LinkIcon, Calendar, Briefcase, Code2 } from "lucide-react";
 import React, { useEffect } from "react";
 import RichTextEditor from './RichTextEditor';
+import ValidatedInput from './ValidatedInput';
 
 const emptyProject = {
   name: "",
@@ -60,178 +61,161 @@ const ProjectForm = ({ data = [], onChange }) => {
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
-            Projects
-          </h3>
-          <p className="text-sm text-gray-500">Add your projects</p>
-        </div>
-
-        <button
-          onClick={addProject}
-          className="flex items-center gap-2 px-3 py-1 text-sm bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
-        >
-          <Plus className="size-4" />
-          Add Project
-        </button>
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="border-b border-slate-100 pb-6">
+        <h2 className="text-2xl font-bold text-slate-800">Projects</h2>
+        <p className="text-slate-500 mt-1">Showcase your work, personal projects, or contributions.</p>
       </div>
 
-      <div className="space-y-6 mt-6">
+      <div className="space-y-6">
         {data.map((project, index) => (
           <div
             key={index}
-            className="p-4 border border-gray-200 rounded-lg space-y-4"
+            className="border border-slate-200 rounded-2xl p-6 bg-slate-50/50 hover:border-blue-200 hover:shadow-sm transition-all group"
           >
             {/* Header */}
-            <div className="flex justify-between items-start">
-              <h4 className="font-medium">Project #{index + 1}</h4>
+            <div className="flex justify-between items-center mb-6">
+              <h4 className="font-bold text-slate-700 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs">
+                  {index + 1}
+                </span>
+                {project.name || "New Project"}
+              </h4>
               <button
                 onClick={() => removeProject(index)}
-                className="text-red-500 hover:text-red-700 transition-colors"
+                className="text-slate-400 hover:text-red-500 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                title="Remove Project"
               >
-                <Trash2 className="size-4" />
+                <Trash2 size={18} />
               </button>
             </div>
 
-            <div className="grid gap-3">
-              {/* Project Name */}
-              <input
-                value={project.name || ""}
-                onChange={(e) =>
-                  updateProject(index, "name", e.target.value)
-                }
-                type="text"
-                placeholder="Project Name"
-                className="px-3 py-2 text-sm rounded-lg"
+            <div className="grid md:grid-cols-2 gap-5 mb-5">
+              <ValidatedInput
+                label="Project Name"
+                value={project.name}
+                onChange={(e) => updateProject(index, "name", e.target.value)}
+                placeholder="e.g. E-Commerce Platform"
+                startIcon={FolderGit2}
               />
 
-              {/* Project Type */}
-              <input
-                value={project.type || ""}
-                onChange={(e) =>
-                  updateProject(index, "type", e.target.value)
-                }
-                type="text"
-                placeholder="Project Type (Work / Personal / Academic)"
-                className="px-3 py-2 text-sm rounded-lg"
+              <ValidatedInput
+                label="Project Type"
+                value={project.type}
+                onChange={(e) => updateProject(index, "type", e.target.value)}
+                placeholder="e.g. Personal, Freelance, Academic"
+                startIcon={Briefcase}
               />
 
-              {/* Role */}
-              <input
-                value={project.role || ""}
-                onChange={(e) =>
-                  updateProject(index, "role", e.target.value)
-                }
-                type="text"
-                placeholder="Your Role (Developer, Lead, Collaborator...)"
-                className="px-3 py-2 text-sm rounded-lg"
+              <ValidatedInput
+                label="Your Role"
+                value={project.role}
+                onChange={(e) => updateProject(index, "role", e.target.value)}
+                placeholder="e.g. Lead Developer"
+                startIcon={Briefcase}
               />
 
-              {/* Tech Stack */}
-              <input
-                value={project.tech || ""}
-                onChange={(e) =>
-                  updateProject(index, "tech", e.target.value)
-                }
-                type="text"
-                placeholder="Tech Stack (React, Node, MongoDB...)"
-                className="px-3 py-2 text-sm rounded-lg"
+              <ValidatedInput
+                label="Tech Stack"
+                value={project.tech}
+                onChange={(e) => updateProject(index, "tech", e.target.value)}
+                placeholder="e.g. React, Node.js, MongoDB"
+                startIcon={Code2}
+              />
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-5 mb-5">
+              <ValidatedInput
+                label="Start Date"
+                value={project.start_date}
+                type="date"
+                onChange={(e) => updateProject(index, "start_date", e.target.value)}
+                startIcon={Calendar}
               />
 
-              {/* Dates */}
-              <div className="grid grid-cols-2 gap-3">
-                <input
-                  value={project.start_date || ""}
-                  type="date"
-                  onChange={(e) =>
-                    updateProject(index, "start_date", e.target.value)
-                  }
-                  className="px-3 py-2 text-sm rounded-lg"
-                />
-
+              <div className="space-y-2">
                 {!project.is_current && (
-                  <input
-                    value={project.end_date || ""}
+                  <ValidatedInput
+                    label="End Date"
+                    value={project.end_date}
                     type="date"
-                    onChange={(e) =>
-                      updateProject(index, "end_date", e.target.value)
-                    }
-                    className="px-3 py-2 text-sm rounded-lg"
+                    onChange={(e) => updateProject(index, "end_date", e.target.value)}
+                    startIcon={Calendar}
                   />
                 )}
+                <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer w-fit ml-1 mt-2">
+                  <input
+                    type="checkbox"
+                    checked={project.is_current || false}
+                    onChange={(e) => updateProject(index, "is_current", e.target.checked)}
+                    className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  Ongoing Project
+                </label>
               </div>
+            </div>
 
-              {/* Ongoing */}
-              <label className="flex items-center gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  checked={project.is_current || false}
-                  onChange={(e) =>
-                    updateProject(index, "is_current", e.target.checked)
-                  }
-                />
-                Ongoing
-              </label>
-
-              {/* Link */}
-              <input
-                value={project.link || ""}
-                onChange={(e) =>
-                  updateProject(index, "link", e.target.value)
-                }
+            <div className="mb-5">
+              <ValidatedInput
+                label="Project Link"
+                value={project.link}
                 type="url"
-                placeholder="GitHub / Live Demo URL"
-                className="px-3 py-2 text-sm rounded-lg"
+                onChange={(e) => updateProject(index, "link", e.target.value)}
+                placeholder="https://github.com/username/project"
+                startIcon={LinkIcon}
               />
+            </div>
 
-              {/* Summary */}
-              <div>
-                <label className="text-sm font-medium mb-1 block">Description</label>
+            {/* Summary */}
+            <div className="mb-5">
+              <label className="text-sm font-semibold text-slate-700 mb-2 block">Description</label>
+              <div className="border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-400 transition-all bg-white">
                 <RichTextEditor
                   value={project.description || ""}
-                  onChange={(value) =>
-                    updateProject(index, "description", value)
-                  }
-                  placeholder="Short summary of the project"
+                  onChange={(value) => updateProject(index, "description", value)}
+                  placeholder="Briefly describe what this project does and your contribution..."
                 />
               </div>
+            </div>
 
-              {/* Bullet Points */}
-              <div className="space-y-2">
-                <p className="text-sm font-medium">Key Achievements</p>
+            {/* Bullet Points */}
+            <div className="space-y-3">
+              <label className="text-sm font-semibold text-slate-700">Key Achievements / Features</label>
 
-                {project.bullets.map((bullet, bIndex) => (
-                  <div key={bIndex} className="flex gap-2">
-                    <input
-                      value={bullet || ""}
-                      onChange={(e) =>
-                        updateBullet(index, bIndex, e.target.value)
-                      }
-                      placeholder="• e.g. Improved page load speed by 40%"
-                      className="flex-1 px-3 py-2 text-sm rounded-lg"
-                    />
-                    <button
-                      onClick={() => removeBullet(index, bIndex)}
-                      className="text-red-500"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))}
+              {project.bullets.map((bullet, bIndex) => (
+                <div key={bIndex} className="flex gap-2 group/bullet">
+                  <ValidatedInput
+                    value={bullet}
+                    onChange={(e) => updateBullet(index, bIndex, e.target.value)}
+                    placeholder="• Improved performance by 50%..."
+                    className="flex-1"
+                  />
+                  <button
+                    onClick={() => removeBullet(index, bIndex)}
+                    className="text-slate-300 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors self-start mt-1"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
+              ))}
 
-                <button
-                  onClick={() => addBullet(index)}
-                  className="text-sm text-blue-600 hover:underline"
-                >
-                  + Add Bullet
-                </button>
-              </div>
+              <button
+                onClick={() => addBullet(index)}
+                className="text-sm text-blue-600 font-medium hover:text-blue-700 flex items-center gap-1 mt-2"
+              >
+                <Plus size={16} /> Add Achievement
+              </button>
             </div>
           </div>
         ))}
       </div>
+
+      <button
+        onClick={addProject}
+        className="w-full py-4 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 font-semibold hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center justify-center gap-2 mt-6"
+      >
+        <Plus size={20} /> Add Another Project
+      </button>
     </div>
   );
 };

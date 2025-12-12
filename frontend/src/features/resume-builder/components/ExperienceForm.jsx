@@ -1,8 +1,9 @@
-import { Loader2, Sparkles } from 'lucide-react';
+import { Loader2, Sparkles, Plus, Trash2, Calendar, Building2, Briefcase } from 'lucide-react';
 import React, { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import RichTextEditor from './RichTextEditor';
+import ValidatedInput from './ValidatedInput';
 
 const ExperienceForm = ({ data = [], onChange }) => {
   const [loadingIndex, setLoadingIndex] = useState(null);
@@ -55,94 +56,106 @@ const ExperienceForm = ({ data = [], onChange }) => {
   };
 
   return (
-    <div className="space-y-6">
-      {(data || []).map((item, i) => (
-        <div key={i} className="border border-gray-300 rounded-lg p-4 space-y-3 bg-white">
-          <div className="flex justify-between items-center">
-            <h3 className="font-medium text-gray-800">Experience #{i + 1}</h3>
-            <button onClick={() => remove(i)} className="text-red-500 text-sm hover:text-red-700">Remove</button>
-          </div>
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="border-b border-slate-100 pb-6">
+        <h2 className="text-2xl font-bold text-slate-800">Experience</h2>
+        <p className="text-slate-500 mt-1">Detailed work history helps recruiters understand your background.</p>
+      </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-sm text-gray-600 block mb-1">Company</label>
-              <input
-                value={item.company || ""}
-                onChange={(e) => updateItem(i, "company", e.target.value)}
-                className="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="Ex. Google"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm text-gray-600 block mb-1">Position</label>
-              <input
-                value={item.position || ""}
-                onChange={(e) => updateItem(i, "position", e.target.value)}
-                className="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="Ex. Senior Software Engineer"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm text-gray-600 block mb-1">Start Date</label>
-              <input
-                type="month"
-                value={item.start_date || ""}
-                onChange={(e) => updateItem(i, "start_date", e.target.value)}
-                className="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm text-gray-600 block mb-1">End Date</label>
-              <input
-                type="month"
-                disabled={item.is_current}
-                value={item.end_date || ""}
-                onChange={(e) => updateItem(i, "end_date", e.target.value)}
-                className="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none disabled:bg-gray-100"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex justify-between items-center mb-1">
-              <label className="text-sm text-gray-600">Description</label>
+      <div className="space-y-6">
+        {(data || []).map((item, i) => (
+          <div key={i} className="border border-slate-200 rounded-2xl p-6 bg-slate-50/50 hover:border-blue-200 hover:shadow-sm transition-all group">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="font-bold text-slate-700 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs">
+                  {i + 1}
+                </span>
+                {item.company || "New Experience"}
+              </h3>
               <button
-                onClick={() => enhanceDescription(i, item.description)}
-                disabled={loadingIndex === i}
-                className="flex items-center gap-1 text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded hover:bg-purple-200 transition-colors disabled:opacity-50"
+                onClick={() => remove(i)}
+                className="text-slate-400 hover:text-red-500 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                title="Remove Experience"
               >
-                {loadingIndex === i ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
-                {loadingIndex === i ? "Enhancing..." : "AI Enhance"}
+                <Trash2 size={18} />
               </button>
             </div>
-            <RichTextEditor
-              value={item.description || ""}
-              onChange={(value) => updateItem(i, "description", value)}
-              placeholder="• Developed backend API...&#10;• Led team of 5 developers..."
-            />
-            <p className="text-xs text-slate-400 mt-1">Use the toolbar to format your description with bullets and styling.</p>
-          </div>
 
-          <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer w-fit">
-            <input
-              type="checkbox"
-              checked={item.is_current || false}
-              onChange={(e) => updateItem(i, "is_current", e.target.checked)}
-              className="rounded text-blue-600 focus:ring-blue-500"
-            />
-            Currently working here
-          </label>
-        </div>
-      ))}
+            <div className="grid md:grid-cols-2 gap-5 mb-5">
+              <ValidatedInput
+                label="Position Title"
+                value={item.position}
+                onChange={(e) => updateItem(i, "position", e.target.value)}
+                placeholder="e.g. Senior Software Engineer"
+                startIcon={Briefcase}
+              />
+              <ValidatedInput
+                label="Company Name"
+                value={item.company}
+                onChange={(e) => updateItem(i, "company", e.target.value)}
+                placeholder="e.g. Google"
+                startIcon={Building2}
+              />
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-5 mb-5">
+              <ValidatedInput
+                label="Start Date"
+                type="month"
+                value={item.start_date}
+                onChange={(e) => updateItem(i, "start_date", e.target.value)}
+                startIcon={Calendar}
+              />
+              <div className="space-y-2">
+                <ValidatedInput
+                  label="End Date"
+                  type="month"
+                  value={item.end_date}
+                  onChange={(e) => updateItem(i, "end_date", e.target.value)}
+                  startIcon={Calendar}
+                  className={item.is_current ? "opacity-50 pointer-events-none" : ""}
+                />
+                <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer w-fit ml-1">
+                  <input
+                    type="checkbox"
+                    checked={item.is_current || false}
+                    onChange={(e) => updateItem(i, "is_current", e.target.checked)}
+                    className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  I currently work here
+                </label>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <label className="text-sm font-semibold text-slate-700">Description</label>
+                <button
+                  onClick={() => enhanceDescription(i, item.description)}
+                  disabled={loadingIndex === i}
+                  className="flex items-center gap-1.5 text-xs font-semibold bg-gradient-to-r from-violet-100 to-fuchsia-100 text-violet-700 px-3 py-1.5 rounded-full hover:from-violet-200 hover:to-fuchsia-200 border border-violet-200 transition-all shadow-sm disabled:opacity-70"
+                >
+                  {loadingIndex === i ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                  {loadingIndex === i ? "Enhancing..." : "Enhance with AI"}
+                </button>
+              </div>
+              <div className="border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-400 transition-all bg-white">
+                <RichTextEditor
+                  value={item.description || ""}
+                  onChange={(value) => updateItem(i, "description", value)}
+                  placeholder="Describe your key responsibilities and achievements..."
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
       <button
         onClick={add}
-        className="w-full border-2 border-dashed border-blue-200 text-blue-600 py-3 rounded-lg text-sm font-medium hover:bg-blue-50 transition-colors"
+        className="w-full py-4 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 font-semibold hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center justify-center gap-2"
       >
-        + Add Experience
+        <Plus size={20} /> Add Work Experience
       </button>
     </div>
   );

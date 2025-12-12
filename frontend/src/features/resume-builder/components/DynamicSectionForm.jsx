@@ -1,6 +1,7 @@
 import React from "react";
 import RichTextEditor from './RichTextEditor';
 import { Trash2, ArrowUp, ArrowDown, Plus } from "lucide-react";
+import ValidatedInput from "./ValidatedInput";
 
 const fieldConfig = {
   experience: {
@@ -93,11 +94,15 @@ const DynamicSectionForm = ({ section, onChange, onTitleChange }) => {
   // Special handling for simple list types (Skills, etc.)
   if (["skills", "languages", "interests"].includes(type)) {
     return (
-      <div className="space-y-4">
-        {section.title && <h3 className="text-lg font-bold text-gray-800">{section.title}</h3>}
+      <div className="space-y-6 animate-in fade-in duration-500">
+        <div className="border-b border-slate-100 pb-6">
+          <h2 className="text-2xl font-bold text-slate-800">{section.title || type.charAt(0).toUpperCase() + type.slice(1)}</h2>
+          <p className="text-slate-500 mt-1">List your {type} here.</p>
+        </div>
+
         <div className="flex flex-wrap gap-2">
           {safeData.map((item, index) => (
-            <div key={index} className="flex items-center gap-2 bg-white border px-3 py-2 rounded-lg shadow-sm">
+            <div key={index} className="flex items-center gap-2 bg-white border border-slate-200 px-3 py-2 rounded-xl shadow-sm hover:border-blue-300 transition-all">
               <input
                 type="text"
                 value={item || ""}
@@ -106,19 +111,19 @@ const DynamicSectionForm = ({ section, onChange, onTitleChange }) => {
                   updated[index] = e.target.value;
                   onChange(updated);
                 }}
-                className="bg-transparent outline-none min-w-[100px]"
+                className="bg-transparent outline-none min-w-[100px] text-slate-700 font-medium"
                 placeholder={`e.g. ${type === 'languages' ? 'English' : 'Java'}`}
               />
-              <button onClick={() => removeItem(index)} className="text-red-500 hover:text-red-700">
-                <Trash2 size={14} />
+              <button onClick={() => removeItem(index)} className="text-slate-400 hover:text-red-500 transition-colors">
+                <Trash2 size={16} />
               </button>
             </div>
           ))}
           <button
             onClick={() => onChange([...safeData, ""])}
-            className="flex items-center gap-1 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors"
+            className="flex items-center gap-1 px-4 py-2 bg-blue-50 text-blue-600 rounded-xl border border-blue-200 hover:bg-blue-100 transition-colors font-medium"
           >
-            <Plus size={16} /> Add
+            <Plus size={18} /> Add
           </button>
         </div>
       </div>
@@ -126,99 +131,100 @@ const DynamicSectionForm = ({ section, onChange, onTitleChange }) => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 animate-in fade-in duration-500">
       {/* Section Title Configuration (for Custom Sections) */}
-      {type === "custom" && onTitleChange && (
-        <div className="mb-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 shadow-sm">
-          <label className="block text-sm font-semibold text-blue-900 mb-2">
-            Section Title
-          </label>
-          <input
-            type="text"
-            value={section.title || ""}
-            onChange={(e) => onTitleChange(e.target.value)}
-            className="w-full border border-blue-200 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white font-medium"
-            placeholder="e.g., Certifications, Languages, Awards"
-          />
-          <p className="text-xs text-blue-600 mt-2 opacity-80">
-            This will be the heading on your resume.
-          </p>
-        </div>
-      )}
+      <div className="border-b border-slate-100 pb-6">
+        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-3">
+          {type === "custom" && onTitleChange ? (
+            <input
+              type="text"
+              value={section.title || ""}
+              onChange={(e) => onTitleChange(e.target.value)}
+              className="bg-transparent border-b border-dashed border-slate-400 focus:border-blue-500 outline-none w-auto min-w-[200px]"
+              placeholder="Custom Section Title"
+            />
+          ) : (
+            section.title || type.charAt(0).toUpperCase() + type.slice(1)
+          )}
+        </h2>
+        <p className="text-slate-500 mt-1">
+          {type === "custom" ? "Define the content for this section." : `Add your ${type} details.`}
+        </p>
+      </div>
 
       {/* List of Items */}
-      {safeData.map((item, index) => (
-        <div key={index} className="bg-white border text-card-foreground shadow-sm rounded-xl p-6 relative group transition-all hover:shadow-md">
-          {/* Action Buttons */}
-          <div className="absolute top-4 right-4 flex gap-2 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity z-10">
-            <button onClick={() => moveItem(index, -1)} className="p-1.5 text-gray-500 hover:bg-gray-100 rounded-md" disabled={index === 0} title="Move Up">
-              <ArrowUp size={16} />
-            </button>
-            <button onClick={() => moveItem(index, 1)} className="p-1.5 text-gray-500 hover:bg-gray-100 rounded-md" disabled={index === safeData.length - 1} title="Move Down">
-              <ArrowDown size={16} />
-            </button>
-            <button onClick={() => removeItem(index)} className="p-1.5 text-red-500 hover:bg-red-50 rounded-md" title="Delete Item">
-              <Trash2 size={16} />
-            </button>
-          </div>
+      <div className="space-y-6">
+        {safeData.map((item, index) => (
+          <div key={index} className="bg-slate-50/50 border border-slate-200 shadow-sm rounded-2xl p-6 relative group transition-all hover:shadow-md hover:border-blue-200">
+            {/* Action Buttons */}
+            <div className="absolute top-4 right-4 flex gap-2 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity z-10">
+              <button onClick={() => moveItem(index, -1)} className="p-2 text-slate-500 hover:bg-white hover:shadow-sm rounded-lg transition-all" disabled={index === 0} title="Move Up">
+                <ArrowUp size={16} />
+              </button>
+              <button onClick={() => moveItem(index, 1)} className="p-2 text-slate-500 hover:bg-white hover:shadow-sm rounded-lg transition-all" disabled={index === safeData.length - 1} title="Move Down">
+                <ArrowDown size={16} />
+              </button>
+              <button onClick={() => removeItem(index)} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete Item">
+                <Trash2 size={16} />
+              </button>
+            </div>
 
-          <div className="grid gap-5">
-            {Object.entries(config).map(([key, field]) => {
-              // Checkbox special handling
-              if (field.type === "checkbox") {
+            <div className="grid gap-5">
+              {Object.entries(config).map(([key, field]) => {
+                // Checkbox special handling
+                if (field.type === "checkbox") {
+                  return (
+                    <label key={key} className="flex items-center gap-2 text-sm font-medium text-slate-700 cursor-pointer w-fit select-none bg-white px-3 py-2 rounded-lg border border-slate-200">
+                      <input
+                        type="checkbox"
+                        checked={item[key] || false}
+                        onChange={(e) => handleItemChange(index, key, e.target.checked)}
+                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                      />
+                      {field.label}
+                    </label>
+                  );
+                }
+
+                // Rich Text Editor
+                if (field.type === "richtext") {
+                  return (
+                    <div key={key}>
+                      <label className="text-sm font-semibold text-slate-700 mb-2 block">{field.label}</label>
+                      <div className="border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-400 transition-all bg-white">
+                        <RichTextEditor
+                          value={Array.isArray(item[key]) ? item[key].join('\n') : (item[key] || "")}
+                          onChange={(val) => handleItemChange(index, key, val)}
+                          placeholder={field.placeholder}
+                        />
+                      </div>
+                    </div>
+                  );
+                }
+
+                // Standard Inputs
                 return (
-                  <label key={key} className="flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer w-fit select-none">
-                    <input
-                      type="checkbox"
-                      checked={item[key] || false}
-                      onChange={(e) => handleItemChange(index, key, e.target.checked)}
-                      className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
-                    />
-                    {field.label}
-                  </label>
-                );
-              }
-
-              // Rich Text Editor
-              if (field.type === "richtext") {
-                return (
-                  <div key={key}>
-                    <label className="text-sm font-semibold text-gray-700 mb-1.5 block">{field.label}</label>
-                    <RichTextEditor
-                      value={Array.isArray(item[key]) ? item[key].join('\n') : (item[key] || "")}
-                      onChange={(val) => handleItemChange(index, key, val)}
-                      placeholder={field.placeholder}
-                    />
-                  </div>
-                );
-              }
-
-              // Standard Inputs
-              return (
-                <div key={key}>
-                  <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
-                    {field.label}
-                  </label>
-                  <input
+                  <ValidatedInput
+                    key={key}
+                    label={field.label}
                     type={field.type || "text"}
-                    value={item[key] || ""}
+                    value={item[key]}
                     onChange={(e) => handleItemChange(index, key, e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all disabled:bg-gray-100 disabled:text-gray-400"
                     placeholder={field.placeholder}
-                    disabled={field.type === "month" && key === "end_date" && item.is_current}
+                    className={field.type === "month" && key === "end_date" && item.is_current ? "opacity-50 pointer-events-none" : ""}
                   />
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <button
         onClick={addNewItem}
-        className="w-full py-3 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 font-medium hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center justify-center gap-2"
+        className="w-full py-4 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 font-semibold hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center justify-center gap-2"
       >
-        <Plus size={18} /> Add {type === 'custom' ? 'Item' : (type.charAt(0).toUpperCase() + type.slice(1))}
+        <Plus size={20} /> Add {type === 'custom' ? 'Item' : (type.charAt(0).toUpperCase() + type.slice(1))}
       </button>
     </div>
   );

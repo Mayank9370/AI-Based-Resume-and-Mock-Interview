@@ -1,91 +1,6 @@
-// import { BriefcaseBusiness, Globe, Linkedin, Mail, MapPin, Phone, User } from 'lucide-react'
-// import React from 'react'
-
-// const PersonalInfoForm = ({ data, onChange, removeBackground, setRemoveBackground }) => {
-
-//     const handleChange = (field, value) => {
-//         onChange({ ...data, [field]: value })
-//     }
-
-//     const fields = [
-//         { key: "full_name", label: "Full Name", icon: User, type: "text", required: true },
-//         { key: "email", label: "Email Address", icon: Mail, type: "email", required: true },
-//         { key: "phone", label: "Phone Number", icon: Phone, type: "tel" },
-//         { key: "location", label: "Location", icon: MapPin, type: "text" },
-//         { key: "profession", label: "Profession", icon: BriefcaseBusiness, type: "text" },
-//         { key: "linkedin", label: "LinkedIn Profile", icon: Linkedin, type: "url" },
-//         { key: "website", label: "Personal Website", icon: Globe, type: "url" }
-//     ]
-
-//     return (
-//         <div>
-//             <h3 className='text-lg font-semibold text-gray-900'>Personal Information</h3>
-//             <p className='text-sm text-gray-600'>Get Started with the personal information</p>
-//             <div className='flex items-center gap-2'>
-//                 <label>
-//                     {data.image ? (
-//                         <img src={typeof data.image === 'string' ? data.image : URL.createObjectURL(data.image)} alt="user-image" className='w-16 h-16 rounded-full object-cover mt-5 ring ring-slate-300 hover:opacity-80' />
-//                     ) : (
-//                         <div className='inline-flex items-center gap-2 mt-5 text-slate-600 hover:text-slate-700 cursor-pointer'>
-//                             <User className='size-10 p-2.5 border rounded-full' />
-//                             upload user image
-//                         </div>
-//                     )}
-//                     <input type="file" accept="image/jpeg, image/png" className="hidden" onChange={(e) => handleChange("image", e.target.files[0])} />
-//                 </label>
-//                 {typeof data.image === 'object' && (
-//                     <div className='flex flex-col gap-1 pl-4 text-sm'>
-//                         <p>Remove Background</p>
-//                         <label className='relative inline-flex items-center cursor-pointer text-gray-900 gap-3'>
-//                             <input type="checkbox" className="sr-only peer" onChange={() => setRemoveBackground(prev => !prev)} checked={removeBackground} />
-//                             <div className='w-9 h-5 bg-slate-300 rounded-full peer peer-checked:bg-green-600 transition-colors duration-200'>
-//                             </div>
-//                             <span className='dot absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-4'></span>
-//                         </label>
-//                     </div>
-//                 )}
-//             </div>
-
-//             {fields.map((field) => {
-//                 const Icon = field.icon;
-//                 return (
-//                     <div key={field.key} className='space-y-1 mt-5'>
-//                         <label className="flex items-center gap-2 text-sm font-medium text-gray-600">
-//                             <Icon className="size-4" />
-//                             {field.label}
-//                             {field.required && <span className="text-red-500">*</span>}
-//                         </label>
-//                         {/* <input type={field.type} value={data[field.key] || ""} onChange={(e)=>handleChange(field.key, e.target.value)} className='mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-sm' placeholder={`Enter your ${field.label.toLowerCase()}`} required={field.required}/> */}
-
-//                         <div className="relative w-full group">
-//                             <input
-//                                 type={field.type}
-//                                 value={data[field.key] || ""}
-//                                 onChange={(e) => handleChange(field.key, e.target.value)}
-//                                 placeholder={`Enter your ${field.label.toLowerCase()}`}
-//                                 required={field.required}
-//                                 className="w-full px-3 py-2 border-b-2 border-gray-300 bg-transparent text-sm outline-none 
-//                focus:border-transparent transition-all"
-//                             />
-
-//                             {/* Underline animation */}
-//                             <span className="
-//       absolute left-0 bottom-0 h-[2px] w-0 bg-blue-500 
-//       transition-all duration-300 
-//       group-focus-within:w-full
-//     "></span>
-//                         </div>
-
-//                     </div>
-//                 )
-//             })}
-//         </div>
-//     )
-// }
-
-// export default PersonalInfoForm
-
 import React from "react";
+import ValidatedInput from "./ValidatedInput";
+import { User, Briefcase, Phone, Mail, MapPin, Linkedin, Globe } from "lucide-react";
 
 const PersonalInfoForm = ({ data, onChange, removeBackground, setRemoveBackground }) => {
   const update = (key, value) => {
@@ -93,56 +8,117 @@ const PersonalInfoForm = ({ data, onChange, removeBackground, setRemoveBackgroun
   };
 
   return (
-    <div className="space-y-4">
-
-      {/* Image Upload */}
-      <div>
-        <label className="text-sm font-medium text-gray-700">Profile Image</label>
-        <input
-          type="file"
-          accept="image/*"
-          className="w-full text-sm mt-1"
-          onChange={(e) => update("image", e.target.files[0])}
-        />
-
-        {data?.image && typeof data.image === "string" && (
-          <img
-            src={data.image}
-            alt="Profile"
-            className="w-24 h-24 rounded-lg mt-3 object-cover border"
-          />
-        )}
-
-        <label className="flex items-center gap-2 mt-2 text-sm">
-          <input
-            type="checkbox"
-            checked={removeBackground}
-            onChange={(e) => setRemoveBackground(e.target.checked)}
-          />
-          Remove Background?
-        </label>
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="border-b border-slate-100 pb-6 mb-6">
+        <h2 className="text-2xl font-bold text-slate-800">Contacts</h2>
+        <p className="text-slate-500 mt-1">Add your up-to-date contact information so employers and recruiters can easily reach you.</p>
       </div>
 
-      {/* Fields */}
-      {[
-        ["full_name", "Full Name"],
-        ["profession", "Profession"],
-        ["email", "Email"],
-        ["phone", "Phone"],
-        ["location", "Location"],
-        ["linkedin", "LinkedIn URL"],
-        ["website", "Portfolio / Website"],
-      ].map(([key, label]) => (
-        <div key={key}>
-          <label className="text-sm font-medium text-gray-700">{label}</label>
-          <input
-            value={data?.[key] || ""}
-            onChange={(e) => update(key, e.target.value)}
-            placeholder={label}
-            className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500 outline-none text-sm"
+      <div className="flex items-start gap-6">
+        {/* Image Upload */}
+        <div className="shrink-0 group relative">
+          <div className={`w-28 h-28 rounded-2xl overflow-hidden border-2 ${data.image ? 'border-blue-500' : 'border-dashed border-slate-300'} bg-slate-50 flex items-center justify-center cursor-pointer hover:bg-slate-100 transition-colors shadow-sm`}>
+            {data?.image ? (
+              <img
+                src={typeof data.image === 'string' ? data.image : URL.createObjectURL(data.image)}
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="text-center p-2">
+                <span className="text-xs text-slate-400 font-medium">Add Photo</span>
+              </div>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              className="absolute inset-0 opacity-0 cursor-pointer"
+              onChange={(e) => update("image", e.target.files[0])}
+            />
+          </div>
+
+          {data?.image && (
+            <label className="flex items-center gap-2 mt-3 text-xs font-medium text-slate-600 cursor-pointer hover:text-blue-600 justify-center">
+              <input
+                type="checkbox"
+                checked={removeBackground}
+                onChange={(e) => setRemoveBackground(e.target.checked)}
+                className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+              />
+              Remove Background
+            </label>
+          )}
+        </div>
+
+        {/* Name & Title */}
+        <div className="grid md:grid-cols-2 gap-6 w-full">
+          <ValidatedInput
+            label="Full Name"
+            value={data?.full_name}
+            onChange={(e) => update("full_name", e.target.value)}
+            placeholder="e.g. Mayank Kumar"
+            startIcon={User}
+          />
+          <ValidatedInput
+            label="Job Title"
+            value={data?.profession}
+            onChange={(e) => update("profession", e.target.value)}
+            placeholder="e.g. Full Stack Developer"
+            startIcon={Briefcase}
           />
         </div>
-      ))}
+      </div>
+
+      {/* Contact Details */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <ValidatedInput
+          label="Phone"
+          value={data?.phone}
+          onChange={(e) => update("phone", e.target.value)}
+          placeholder="e.g. +91 7011300316"
+          type="tel"
+          startIcon={Phone}
+        />
+        <ValidatedInput
+          label="Email"
+          value={data?.email}
+          onChange={(e) => update("email", e.target.value)}
+          placeholder="e.g. mayank@example.com"
+          type="email"
+          startIcon={Mail}
+        />
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        <ValidatedInput
+          label="Location"
+          value={data?.location}
+          onChange={(e) => update("location", e.target.value)}
+          placeholder="e.g. New Delhi, India"
+          startIcon={MapPin}
+        />
+        <ValidatedInput
+          label="LinkedIn (Optional)"
+          value={data?.linkedin}
+          onChange={(e) => update("linkedin", e.target.value)}
+          placeholder="linkedin.com/in/username"
+          startIcon={Linkedin}
+        />
+      </div>
+
+      <div className="grid md:grid-cols-1 gap-6">
+        <ValidatedInput
+          label="Personal Website (Optional)"
+          value={data?.website}
+          onChange={(e) => update("website", e.target.value)}
+          placeholder="https://yourwebsite.com"
+          startIcon={Globe}
+        />
+      </div>
+
+      <div className="pt-2">
+        {/* Accordion for Additional Info could go here if needed */}
+      </div>
 
     </div>
   );
